@@ -1,0 +1,2042 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Trendsetting in Networks}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Social reinforcement can play a crucial role in behavioral adoption.
+When the primary function of a behavior is social, such as with Twitter
+memes or fashion, the largest factor for whether an individual adopts a
+new behavior may be the behaviors in their reference network. We explore
+the question of how social network structure and individual factors
+affect the propagation of these behaviors. We construct an agent-based
+model which allows us to simulate behavior propagation in social
+networks. We simulate propagation in networks where two competing
+behaviors are present and observe the impacts of population size,
+connectivity, initial prevalence, and learning rate on dispersion over
+time. We give particular focus to the question of how trends emerge.
+
+\hypertarget{modeling-social-norms}{%
+\section{Modeling Social Norms}\label{modeling-social-norms}}
+
+Mathematical modeling of behavior dispersion has been a focus for
+researchers across disciplines since the publication of prominent papers
+by Mark Granovetter (e.g. ``The Strength of Weak Ties'') in the 1970s.
+Granovetter's ``Threshold Models of Collective Behavior'' (1978)
+describes a mathematical model through which we can understand the
+progression of trends in a population. For a behavior such as rioting,
+individuals may have a preference to partake in the behavior which is
+conditional on the proportion of their peers who also partake. If there
+are 100 people in an area where a riot is forming, and an agent is
+willing to join the riot only if 50 or more people have joined, then
+their threshold for participation in this model is 50\%. If we know the
+distribution of behavior thresholds of a population as well as the
+number participating in the behavior at a given time, we can in theory
+determine whether a riot will explode or diminish by delineating
+discrete time intervals and inductively calculating the proportion that
+will join the riot at each interval.
+
+The ability to simulate and model decision-making processes for social
+behaviors has greatly increased the specificity and accuracy with which
+we can study the dispersion of behaviors and ideas within networks. In
+addition to simply modeling the preferences of individuals, we may also
+wish to understand the implications of these preferences when they
+manifest in a network. If a behavior is becoming popular amongst a
+population, the decision of an individual to partake is not simply a
+function of the collective population's behavior, but instead of the
+behavior of their local reference network, or those who we have some
+sort of tangible connection to; it makes no sense that we would be able
+to directly imitate behavior of those whose actions are invisible to us.
+In a graphical representation of a population, individuals are
+represented as nodes and their relationships (whether professional,
+platonic, romantic, or digital) are represented as directed or
+undirected edges between nodes. The resulting web is the social network
+of the population, and the shape it takes can drastically affect the
+manner in which ideas disperse.
+
+A particularly challenging task in the study of social norms is
+understanding how trends emerge. It is difficult to tell whether a trend
+will reach prevalence during its initial stages. By the time a trend has
+either propagated or died out, we are restricted to a historical
+analysis, which limits our ability to find conclusive results about the
+behaviors of the initial trendsetters. Simulation work using agent-based
+modeling techniques presents a promising approach for overcoming some of
+these difficulties.
+
+The two broad factors related to trendsetting that we can study easily
+with our approach are network structure and seeding pattern. These are
+difficult factors to study currently in real-world populations, because
+we lack the ability to apply experimental treatments to measure their
+impacts; it is very difficult to manually seed a network of humans with
+a certain idea, and it is essentially impossible to try to forcibly add
+or break connections between people to alter the structure of a social
+network.
+
+By conducting sufficiently realistic simulations with an agent-based
+model, we can begin to formulate hypotheses about the functionality of
+trendsetting in practice. These findings may be applicable for a wide
+variety of trendsetting efforts that we wish to promote. It may be the
+case that broadly introducing new ideas to an entire population is not
+the most efficient way to alter norms which we find to be problematic,
+such as discrimination or child marriage (Bicchieri, Cristina. ``Norms
+in the Wild'', 2016). Instead, we may be able to isolate communities
+within the population that are properly positioned in their network to
+influence the remainder of the population, and apply a more intense
+seeding procedure that results in a higher probability of community
+adoption.
+
+\hypertarget{our-model}{%
+\section{Our Model}\label{our-model}}
+
+We construct a framework for running simulations of behavior propagation
+in a network. Our model has many similarities to work by Nunn et al.
+(``Do transmission mechanisms or social systems drive cultural dynamics
+in socially structured populations?'', 2009). In their simulations, they
+construct an artificial network and run simulations about behavior
+adoption, modifying parameters for both the agent and network structure
+and observing the effects on propagation. They use 3 transmission models
+(random, prestige, and concensus) to vary the way in which agents
+imitate from observation. Ours is most similar to their concensus model,
+where the number of observations increases the probability of adoption,
+but all agents are weighted equally for prestige.
+
+Their simulation focuses on a physical network structure where agents
+are placed into fully connected groups, and move to other groups
+probabilistically based on geographical proximity. Ours is more in line
+with a social network, where connections between any two agents are
+explicitly represented as edges. Our clustering specifications allow us
+to construct networks quite similar to theirs, but we do not enforce
+that clusters are fully connected. The primary aim of their work was to
+explore how the different transmission models, as well as parameters
+controlling group size, movement, and mortality, affect transmission. In
+contrast, we give specific attention to the question of how trends
+emerge, and explore which parameter settings result in a high
+probability of a new behavior reaching prevalence.
+
+In our simulations, there is a base action (represented numerically as
+0) and a target action (represented as 1) which compete for prevalence.
+Our aim is to understand how parameters such as population size, initial
+prevalence, connectivity, and learning rate affect the prevalence of the
+target action over time.
+
+Our agent-based model is a probabilistic variant of a threshold model.
+We make the assumption that agents can only learn by observing others in
+their reference network. We represent these connections as edges in a
+graph, and we treat all edges as equal. We also make the assumption that
+an agent's behavior is probabilistic rather than deterministic. Instead
+of only acting when a fixed threshold is crossed, agents act with a
+probability which increases linearly with the rate of observing the
+relevant characteristics in their reference network (i.e.~their
+neighbors). In our case, this means that agents are more likely to
+engage in the target behavior when more of their neighbors are engaging
+in the behavior.
+
+In the simplest version of the model, agents act directly in accordance
+with the distribution of actions they witnessed in the previous round.
+In the first round of the simulation, agents act according to their
+`prior', which is a specified parameter representing the initial
+prevalence of the target behavior. This can be modified with the memory
+parameter to induce a different learning rate, controlling the speed at
+which the initial prior washes out when actions are observed every
+round.
+
+In each round, after the network \((V, E)\) is created, actions
+\(a_i^t\) in every time step \(t\) are drawn from each agent \(i\)'s
+distribution by sampling from a uniform distribution and comparing to
+their prior \(p_i^t\) for using the target action at that time. Priors
+are then updated by mixing the old prior \(p_i^t\) and the observed
+distribution \(o_i^{t+1}\) (from the reference network \(N_i\))
+proportionally with memory \(\mu\):
+
+\[X_i^t \sim U(0,1)\]
+
+\[a_i^t = \mathbb{1}(X_i^t \leq p_i^t)\]
+
+\[N_i = \{j : (j, i) \in E\}\]
+
+\[o_i^{t+1} = (\sum_{j \in N_i} a_j^t) ~ / \mid N_i ~ \mid \]
+
+\[p_i^{t+1} = \mu p_i^t + (1 - \mu) o_i^{t+1} \]
+
+Prevalence in each time step \(\pi_t\) is computed as the mean action
+value in the network:
+
+\[\pi_t = (\sum_{i \in V} a_i^t)~ / \mid V ~ \mid \]
+
+\hypertarget{parameters}{%
+\subsection{Parameters}\label{parameters}}
+
+We modify our simulations along several parameters to understand the
+impact of different scenarios on prevalence of the target action over
+time.
+
+\hypertarget{population-size}{%
+\paragraph{Population Size:}\label{population-size}}
+
+Number of agents in the network.
+
+\hypertarget{prior-initial-prevalence}{%
+\paragraph{Prior (Initial Prevalence):}\label{prior-initial-prevalence}}
+
+Probability that an agent engages in the target behavior in a given
+round.
+
+\hypertarget{connectivity}{%
+\paragraph{Connectivity:}\label{connectivity}}
+
+Likelihood of an edge being created between any two agents \(i\) and
+\(j\).
+
+\hypertarget{memory-learning-rate}{%
+\paragraph{Memory (Learning Rate):}\label{memory-learning-rate}}
+
+The proportion to which the old prior is maintained when updating after
+observations. This can be viewed as a sort of learning rate, controlling
+the speed at which the initial prior washes out.
+
+\hypertarget{trendsetters}{%
+\paragraph{Trendsetters:}\label{trendsetters}}
+
+Agents designated to always engage in the target behavior. Their prior
+is always set to 1.0.
+
+\hypertarget{clustering}{%
+\paragraph{Clustering:}\label{clustering}}
+
+Parameters for controlling the structure of the network. We can specify
+the size of each cluster, the connectivity (edge probability) between
+agents in the same cluster, and the connectivity between agents in
+different clusters. We also provide a method for computing the
+clustering coefficient of a network.
+
+\hypertarget{prevalence}{%
+\paragraph{Prevalence:}\label{prevalence}}
+
+This is our primary metric for quantifying the dispersion of behavior.
+Prevalence represents the proportion of agents taking part in the target
+action in a given round.
+
+\hypertarget{understanding-simulations}{%
+\subsection{Understanding Simulations}\label{understanding-simulations}}
+
+For any setting of parameters, we run numerous simulations (typically
+100) to ensure we can be relatively confident about the trends we
+observe. We visualize our results by displaying the proportion of
+simulations resulting in different levels of prevalence at different
+times. For every timestep, we show the proportion of trials where
+prevalence falling into each of the five quintile bands (e.g.~40-60\%)
+as well as the proportion at either 0\% or 100\% prevalence.
+Intuitively, this lets us visualize the probabilities of different
+outcomes occuring in our simulation. This randomness takes into account
+both the randomization within edge construction and from the actions
+taken every round.
+
+\hypertarget{our-results}{%
+\section{Our Results}\label{our-results}}
+
+Our results present useful guidelines about the tradeoffs of relevant
+parameters. For uniformly constructed networks without trendsetters, our
+most interesting result is that the prior probability for the target
+action is quite close to the proportion of trials where all agents
+converge to the target action. Above a threshold for sufficiently large
+and connected networks, in nearly every simulation, the observed
+proportion of trials reaching full prevalence was approximately equal to
+the prior. Upon conducting statistical tests, we preserve the hypothesis
+that the prior is equal to the likelihood of convergence to the target
+action with statistical significance for several parameter combinations.
+All Z values indicate the number of standard deviations our observed
+success rate is away from the mean, assuming the prior equals the target
+behavior convergence probability: - Baseline w/ Prior = 0.1, 1000
+trials: Z = -0.6324555320336759 - Baseline w/ Prior = 0.3, 1000 trials:
+Z = -0.2760262237369417 - Baseline w/ Prior = 0.5, 1000 trials: Z =
+0.5059644256269407 - Baseline w/ Prior = 0.1, Memory = 0.3, 1000 trials:
+Z = -0.5270462766947299 - Baseline w/ Prior = 0.3, Memory = 0.3, 1000
+trials: Z = 0.06900655593423542 - Baseline w/ Prior = 0.5, Memory = 0.3,
+1000 trials: Z = -0.18973665961010278
+
+We also include clustering and trendsetting as two new dimensions for
+modifying our simulations. Including a single trendsetter in a network
+with a low prior resulted in the vast majority of simulations converging
+to the target behavior relatively quickly, showcasing the impact that
+can be had when just one person acts as an influencer rather than
+learning from their neighbors. This effect was exacerbated by increasing
+the number of trendsetters. While introducing clusters on their own did
+not have an interesting effect, we experimented with different
+allocations of trendsetters between clusters. We found that spreading
+out trendsetters across several clusters resulted in slightly faster
+convergence than placing them all within the same cluster.
+
+We acknowledge that our trendsetter model involves an oversimplification
+which may be a factor in our results about the effectiveness of
+trendsetting. Because trendsetters will never use the base action, and
+because our simulation seems to always converge eventually rather than
+finding an equilibrium between the two actions, convergence to the
+target action is practically guaranteed. However, we can use our results
+about prior values to speculate about what would happen if the
+trendsetters were to drop out from the network at some point. We
+hypothesize that the prevalence of the target behavior at the time of
+dropout will be quite close to the target behavior convergence
+probability.
+
+\hypertarget{further-work}{%
+\section{Further Work}\label{further-work}}
+
+Extensions of this work may include mortality models for trendsetters
+and other agents, non-linear functions for prior updating, inclusion of
+more than two actions, agent models trained on real data (possibly using
+Twitter hashtags), weighted and unidirectional edges, utility models
+allowing for more nuanced social learning, prestige values based on
+network centrality (possibly computed with PageRank), and simulations on
+much larger networks. These additions would allow us to model more
+complex and realistic scenarios with higher degrees of accuracy.
+
+Further work in developing more robust and complicated models may allow
+us to replicate trend emergence patterns in real-world scenarios with
+sufficient degrees of accuracy. In theory, we can study virality within
+a school, city, or a small friend group by generating simulations that
+model their typical networks structure. We can study the effectiveness
+of introducing viral ideas in scale-free networks, small-world networks,
+homogenous networks, dense and sparse networks, and networks with high
+or low clustering coefficients by defining our initial simulation
+network as such. We can also study the comparative success of different
+trendsetter seeding strategies, such as seeding an idea heavily within
+one large community and hoping it disperses, or seeding in smaller
+pockets throughout a network and hoping that they converge. For any
+real-world situation where we wish to engage in trendsetting behavior,
+we can map the structure of the social network, create an equivalent
+simulation, and use the results of various simulated seeding patterns to
+inform the actions we take to influence people and shift norms.
+
+There is a growing body of work regarding computational studies of
+behavior which we can turn to for inspiration, including recent papers
+by Chang and Koban (``Modeling Emotion and Learning of Norms in Social
+Interactions'', 2013) and Boloni et al. (``Towards a computational model
+of social norms'', 2018). As access to data and powerful computing
+resources expands, we should expect the trend of increasingly intricate
+and accurate models of human interaction to continue.
+
+    \hypertarget{a-brief-discussion-about-simulation-performance}{%
+\section{A Brief Discussion About Simulation
+Performance}\label{a-brief-discussion-about-simulation-performance}}
+
+Initially, I built these simulation tools with Apache Spark's dataframes
+and the SparkSQL library. These tools are well-designed for efficient
+parallel computation across many servers, but as I ran out of AWS
+credits, I was stuck running simulations on my MacBook. The overhead
+required by Spark's more intricate data model was heavy enough to become
+fairly slow when running moderate-sized jobs without multiple servers,
+resulting in ``out of memory'' errors when attempting many of the
+computations. To remedy this, I reimplemented the simulation tasks with
+simple, lightweight Python data structures (such as a dictionary to
+represent the network), taking care to ensure that our population sizes
+are small enough such that lack of parallelization is not a major issue.
+
+Somehow, this actually worked and everything runs quite quickly.
+
+The Spark code is available in another notebook in this repository. It
+is worth revisiting if we desire to use cloud services to run similar
+simulations which require heavier computing resources.
+
+    \hypertarget{code}{%
+\section{Code}\label{code}}
+
+\hypertarget{basic-functionality}{%
+\subsection{Basic Functionality}\label{basic-functionality}}
+
+We use a dictionary object to store the relevant parameter values for
+our simulations. This dictionary is passed to the build\_network
+function which creates another dictionary representing the information
+about agents in the network. We give other methods for simulating the
+``action'' step and the ``prior update'' step of our simulation, as well
+as a method which simulates many rounds at once.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}318}]:} \PY{k+kn}{import} \PY{n+nn}{random}
+          \PY{k+kn}{import} \PY{n+nn}{copy}
+          
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{We use a dictionary object to contain all necessary info for constructing a network and running a simulation.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{\PYZcb{}}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Constructs a network ready for simulation based on the parameter dictionary.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{build\PYZus{}network}\PY{p}{(}\PY{n}{params}\PY{p}{)}\PY{p}{:}
+              \PY{n}{edges} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                          \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                          \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              
+              \PY{n}{network} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{n}{agent} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{agent}\PY{p}{)}
+              \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{edges}\PY{p}{:}
+                  \PY{n}{network}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{network}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Sets action results for every agent by drawing from their prior.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{simulate\PYZus{}all\PYZus{}actions}\PY{p}{(}\PY{n}{network}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{network}\PY{p}{:}
+                  \PY{n}{prob} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                  \PY{k}{if} \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}} \PY{n}{prob}\PY{p}{:}
+                      \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0}
+              
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Updates each agent\PYZsq{}s prior according to observed behaviors, mixing with the old prior as specified by memory.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{update\PYZus{}all\PYZus{}priors}\PY{p}{(}\PY{n}{network}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{network}\PY{p}{:}
+                  \PY{n}{action\PYZus{}count} \PY{o}{=} \PY{l+m+mf}{0.0}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                      \PY{n}{action\PYZus{}count} \PY{o}{+}\PY{o}{=} \PY{n}{network}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{+} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{p}{(}\PY{n}{action\PYZus{}count} \PY{o}{/} \PY{n+nb}{len}\PY{p}{(}\PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+          
+                      
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Computes the proportion of agents in the network exhibiting the target behavior.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}\PY{p}{:}
+              \PY{n}{prev} \PY{o}{=} \PY{l+m+mf}{0.0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{network}\PY{p}{:}
+                  \PY{n}{prev} \PY{o}{+}\PY{o}{=} \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{prev} \PY{o}{/}\PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+              
+              \PY{k}{return} \PY{n}{prev}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Fixes priors at 1.0 for agents designated as trendsetters.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{maintain\PYZus{}trendsetters}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{agent} \PY{o+ow}{in} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                  \PY{n}{network}\PY{p}{[}\PY{n}{agent}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mf}{1.0}
+          
+                  
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Simulates N rounds of behavior and prior updating in the network.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}        
+          \PY{k}{def} \PY{n+nf}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}\PY{p}{:}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{params}\PY{p}{:}
+                      \PY{n}{maintain\PYZus{}trendsetters}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{simulate\PYZus{}all\PYZus{}actions}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{update\PYZus{}all\PYZus{}priors}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{changing-network-structures}{%
+\subsection{Changing Network
+Structures}\label{changing-network-structures}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}317}]:} \PY{k+kn}{import} \PY{n+nn}{math}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{We add fields for \PYZsq{}clusters\PYZsq{}, \PYZsq{}ingroup\PYZsq{}, and \PYZsq{}outgroup\PYZsq{} to our dictionary. When these are present, \PYZsq{}edge\PYZus{}prob\PYZsq{} is not necessary.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{\PYZcb{}}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Constructs a network with clusters as specified by the parameter dictionary.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{build\PYZus{}network\PYZus{}clusters}\PY{p}{(}\PY{n}{params}\PY{p}{)}\PY{p}{:}
+              \PY{n}{edges} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{cluster\PYZus{}size} \PY{o}{=} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{/} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{x} \PY{o}{=} \PY{n}{random}\PY{o}{.}\PY{n}{random}\PY{p}{(}\PY{p}{)}
+                      
+                      \PY{k}{if} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{i} \PY{o}{/} \PY{n}{cluster\PYZus{}size}\PY{p}{)} \PY{o}{==} \PY{n}{math}\PY{o}{.}\PY{n}{floor}\PY{p}{(}\PY{n}{j} \PY{o}{/} \PY{n}{cluster\PYZus{}size}\PY{p}{)}\PY{p}{:}
+                          \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                              \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+                      \PY{k}{else}\PY{p}{:}
+                          \PY{k}{if} \PY{n}{x} \PY{o}{\PYZlt{}} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                              \PY{n}{edges}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+              
+              \PY{n}{network} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+              \PY{n}{agent} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{action}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{0}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)}\PY{p}{,}
+                       \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{agent}\PY{p}{)}
+              \PY{k}{for} \PY{n}{e} \PY{o+ow}{in} \PY{n}{edges}\PY{p}{:}
+                  \PY{n}{network}\PY{p}{[}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n}{e}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+                  
+              \PY{k}{return} \PY{n}{network}
+          
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Computes the global clustering coefficient for a network.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{clustering\PYZus{}coefficient}\PY{p}{(}\PY{n}{network}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pop} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+              \PY{n}{triples} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{triangles} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{pop}\PY{p}{)}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{pop}\PY{p}{)}\PY{p}{:}
+                      \PY{k}{for} \PY{n}{k} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{pop}\PY{p}{)}\PY{p}{:}
+                          \PY{n}{pairs} \PY{o}{=} \PY{l+m+mi}{0}
+                          \PY{k}{if} \PY{n}{i} \PY{o+ow}{in} \PY{n}{network}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{pairs} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                          \PY{k}{if} \PY{n}{j} \PY{o+ow}{in} \PY{n}{network}\PY{p}{[}\PY{n}{k}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{pairs} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                          \PY{k}{if} \PY{n}{k} \PY{o+ow}{in} \PY{n}{network}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{incoming}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+                              \PY{n}{pairs} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                          \PY{k}{if} \PY{n}{pairs} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                              \PY{n}{triangles} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{3}
+                          \PY{k}{if} \PY{n}{pairs} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{l+m+mi}{2}\PY{p}{:}
+                              \PY{n}{triples} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              \PY{c+c1}{\PYZsh{}return (triangles, triples)           }
+              \PY{k}{return} \PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{triangles} \PY{o}{/} \PY{n}{triples}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{visualization-tools}{%
+\subsection{Visualization Tools}\label{visualization-tools}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}361}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Displays the prevalence over time for five simulations using the specified parameters}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{display\PYZus{}five\PYZus{}simulations}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}\PY{p}{:}
+              
+          
+              \PY{n}{rounds} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+              \PY{n}{results1} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{results2} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{results3} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{results4} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{results5} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          
+              \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{results1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{prev}
+          
+              \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{results2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{prev}
+          
+              \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{results3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{prev}
+          
+              \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{results4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{prev}
+          
+              \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                  \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                  \PY{n}{results5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{prev}
+          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{results1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{1st Trial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{results2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{2nd Trial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{results3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3rd Trial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{results4}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4th Trial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{results5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5th Trial}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}327}]:} \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+          
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{l+s+sd}{Runs numerous simulations and displays the proportion of trials falling into each quintile (as well as 0\PYZpc{}/100\PYZpc{}) over time.}
+          \PY{l+s+sd}{\PYZsq{}\PYZsq{}\PYZsq{}}
+          \PY{k}{def} \PY{n+nf}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{n}{title}\PY{p}{)}\PY{p}{:}
+              \PY{n}{rounds} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          
+              \PY{c+c1}{\PYZsh{} (0,20)}
+              \PY{n}{quint1} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} [20,40)}
+              \PY{n}{quint2} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+              \PY{c+c1}{\PYZsh{} [40,60)}
+              \PY{n}{quint3} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} [60,80)}
+              \PY{n}{quint4} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{c+c1}{\PYZsh{} [80,100)}
+              \PY{n}{quint5} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{full} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{empty} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0}\PY{p}{]}\PY{o}{*}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+              \PY{c+c1}{\PYZsh{}results = [[0.0]*param\PYZus{}dict[\PYZsq{}rounds\PYZsq{}]]*param\PYZus{}dict[\PYZsq{}trials\PYZsq{}]}
+          
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{network} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{param\PYZus{}dict}\PY{p}{:}
+                      \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network\PYZus{}clusters}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                      
+                  \PY{n}{params} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                  \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                      \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                      \PY{c+c1}{\PYZsh{}results[i][j] = prev}
+                      \PY{k}{if} \PY{n}{prev} \PY{o}{==} \PY{l+m+mf}{0.0}\PY{p}{:}
+                          \PY{n}{empty}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.2}\PY{p}{:}
+                          \PY{n}{quint1}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.4}\PY{p}{:}
+                          \PY{n}{quint2}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.6}\PY{p}{:}
+                          \PY{n}{quint3}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.8}\PY{p}{:}
+                          \PY{n}{quint4}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{\PYZlt{}} \PY{l+m+mf}{1.0}\PY{p}{:}
+                          \PY{n}{quint5}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+                      \PY{k}{elif} \PY{n}{prev} \PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{:}
+                          \PY{n}{full}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+          
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{quint1}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{quint2}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{quint3}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{quint4}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{quint5}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{full}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+                  \PY{n}{empty}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{/}\PY{o}{=} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{quint1}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{r\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0\PYZhy{}20}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{quint2}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{m\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20\PYZhy{}40}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{quint3}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{b\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{40\PYZhy{}60}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{quint4}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{c\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{60\PYZhy{}80}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)} 
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{quint5}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{80\PYZhy{}100}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{full}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{g\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{100}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{rounds}\PY{p}{,} \PY{n}{empty}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{k\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZpc{}}\PY{l+s+s1}{ Prevalence}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{axis}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Round}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Proportion of Trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{n}{title}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{significance-testing}{%
+\subsection{Significance Testing}\label{significance-testing}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}382}]:} \PY{k}{def} \PY{n+nf}{z\PYZus{}score}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{n}{prediction}\PY{p}{)}\PY{p}{:}
+              \PY{n}{rounds} \PY{o}{=} \PY{p}{[}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          
+              \PY{n}{target\PYZus{}vals} \PY{o}{=} \PY{p}{[}\PY{l+m+mf}{0.0} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{]}
+          
+              \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{network} \PY{o}{=} \PY{k+kc}{None}
+                  \PY{k}{if} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{param\PYZus{}dict}\PY{p}{:}
+                      \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network\PYZus{}clusters}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{n}{network} \PY{o}{=} \PY{n}{build\PYZus{}network}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                      
+                  \PY{n}{params} \PY{o}{=} \PY{n}{copy}\PY{o}{.}\PY{n}{deepcopy}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+                  \PY{n}{params}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                  \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{simulate\PYZus{}rounds\PYZus{}with\PYZus{}updating}\PY{p}{(}\PY{n}{network}\PY{p}{,} \PY{n}{params}\PY{p}{)}
+                      \PY{n}{prev} \PY{o}{=} \PY{n}{prevalence}\PY{p}{(}\PY{n}{network}\PY{p}{)}
+                      \PY{k}{if} \PY{n}{prev} \PY{o}{==} \PY{l+m+mf}{1.0}\PY{p}{:}
+                          \PY{n}{target\PYZus{}vals}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{l+m+mi}{1}
+              
+              \PY{n}{target} \PY{o}{=} \PY{n}{target\PYZus{}vals}\PY{p}{[}\PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}\PY{p}{]}
+              
+              \PY{n}{mean} \PY{o}{=} \PY{n}{prediction} \PY{o}{*} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{var} \PY{o}{=} \PY{n}{prediction} \PY{o}{*} \PY{p}{(}\PY{l+m+mi}{1} \PY{o}{\PYZhy{}} \PY{n}{prediction}\PY{p}{)} \PY{o}{*} \PY{n}{param\PYZus{}dict}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              \PY{n}{dev} \PY{o}{=} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{var}\PY{p}{)}
+              \PY{n}{z} \PY{o}{=} \PY{p}{(}\PY{n}{target} \PY{o}{\PYZhy{}} \PY{n}{mean}\PY{p}{)} \PY{o}{/} \PY{n}{dev}
+          
+              \PY{k}{return} \PY{p}{(}\PY{n}{target}\PY{p}{,} \PY{n}{mean}\PY{p}{,} \PY{n}{var}\PY{p}{,} \PY{n}{dev}\PY{p}{,} \PY{n}{z}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}398}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1000}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{z} \PY{o}{=} \PY{n}{z\PYZus{}score}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+m+mf}{0.5}\PY{p}{)}
+          \PY{n}{z}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}398}]:} (497.0, 500.0, 250.0, 15.811388300841896, -0.18973665961010278)
+\end{Verbatim}
+            
+    \hypertarget{results}{%
+\section{Results}\label{results}}
+
+    \hypertarget{visualizing-several-simulations}{%
+\subsection{Visualizing Several
+Simulations}\label{visualizing-several-simulations}}
+
+To demonstrate the types of patterns which occur as the simulations
+progress, we display the prevalence of the target behavior over time for
+5 iterations of the simulation with our baseline parameters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}363}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{display\PYZus{}five\PYZus{}simulations}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_14_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{visualizing-dispersion}{%
+\subsection{Visualizing Dispersion}\label{visualizing-dispersion}}
+
+To better understand the trends in behavioral dispersion which occur
+under different parameter settings, we conduct numerous simulations and
+display the proportion of trials for which the prevalence falls into
+each of 5 quintiles (with 0\% and 100\% excluded). We also display the
+proportion of trials where one of the behaviors reaches saturation.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Baseline}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_16_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{adjusting-initial-prevalence}{%
+\subsection{Adjusting Initial
+Prevalence}\label{adjusting-initial-prevalence}}
+
+The prior parameter represents the initial prevalence of the target
+variable. Functionally, it controls the probability that an agent will
+exhibit the target behavior in round one. In any subsequent round,
+agents will act according to the distribution of action exhibited in
+their reference network in the previous round. We fix memory at zero for
+these simulations, so there is no mixing between old priors and new
+observations. If prior is zero, the target behavior will never be
+introduced. If prior is one, base behavior is nonexistent.
+
+We visualize our results for prior values of 0.1, 0.3, and 0.5. The
+extremal values (0.0, 1.0) result in flat lines at 0\% or 100\%
+respectively, as only a single behavior is ever present. We maintain the
+baseline parameters for population (100), connectivity (10\%), and
+memory (0). We conduct 100 trials of 500 rounds each for the chosen
+prior values.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}356}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_18_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}355}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_19_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}164}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    The simulations with prior \(p\) and \((1 - p)\) are effectively
+symmetric for any \(p\). Quite interestingly, the proportion of
+simulations where full prevalence is reached appears to track the value
+of the prior parameter remarkably closely. Further simulations verified
+this general trend up to prior values of 0.95. We will later explore how
+this changes under different parameter settings.
+
+    \hypertarget{adjusting-population-size}{%
+\subsection{Adjusting Population Size}\label{adjusting-population-size}}
+
+We conduct simulations with varying population sizes to observe the
+effect of population on speed of convergence. We conducted simulations
+for a range of values and show our results for networks with 25, 100,
+and 250 agents. It appears that convergence (either to the base or
+target action) is not guaranteed for populations under 50, and these
+smaller populations exhibit higher volatility per round as seen by the
+amount of noise in the prevalence graphs. The speed of convergence
+appears to slow down gradually as network size grows, yet it still
+occurs eventually nonetheless. The lack of convergence in smaller
+networks may be a result of a disconnected network. Because we did not
+modify our edge probability, it is possible that separate components of
+the network each converge on their own to different actions, but there
+is no network-wide dominant action.
+
+For these simulations we maintain the baseline parameters for
+connectivity (10\%), starting prior (50\%), and memory (0). We conduct
+100 trials for 500 rounds each.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{25}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population = 25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_23_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}175}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population = 100}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_24_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{250}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Population = 250}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_25_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{adjusting-connectivity}{%
+\subsection{Adjusting Connectivity}\label{adjusting-connectivity}}
+
+The networks we are constructing are random, where any undirected edge
+between two agents is included with some fixed probability. We explore
+the effects of changing this probability on the dispersion of the target
+action. We simulate with many values and show our results for
+connectivity of 0.025, 0.05, 0.1, and 0.25.
+
+Low connectivity appears to have similar results to very small networks,
+likely due to the same problem of a disconnected network. Connectivity
+values beyond 0.1 do not seem to have a strong impact on prevalence.
+
+For these simulations we maintain the baseline parameters for size
+(100), starting prior (50\%), and memory (0). We conduct 100 trials for
+500 rounds each.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.025}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Connectivity = 0.025}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_27_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.05}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Connectivity = 0.05}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_28_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}193}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Connectivity = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_29_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}364}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.25}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Connectivity = 0.25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_30_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{adjusting-memory}{%
+\subsection{Adjusting Memory}\label{adjusting-memory}}
+
+The memory parameter controls the speed at which an agent learns from
+its neighbors. More concretely, memory controls the mixture between the
+old prior and the observed distribution when updating an agent's prior.
+If memory is 0, the prior will always be set to the observed
+distribution in the previous round. If memory is 1, the prior will never
+update.
+
+As we can see from the visualizations below for memory values of 0.3,
+0.5, and 0.7, increasing memory appears to decrease the speed at which
+behaviors disperse, resulting higher proportions of trials falling into
+the middle prevalence bands for longer periods of time. For memory
+values above 0.7, the proportion of trials for which one of the
+behaviors reaches convergence in 500 rounds becomes quite small, but
+simulations with longer time horizons confirmed that convergence will
+usually occur eventually. As expected, when memory is set to 1, we found
+no change in behavior over time, with nearly every trial falling into
+the middle band. These results are not entirely surprising, but they
+allow us to represent an important behavioral phenomenon. When agents
+are less willing to adapt to new observations, favoring what they
+already know, new behaviors face more resistance. We will later see how
+this interacts with other behaviors.
+
+We maintain the baseline parameters for population (100), connectivity
+(10\%), and starting prior (50\%). We conduct 100 trials for 500 rounds
+each.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}365}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Memory = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_32_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}184}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Memory = 0.5}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_33_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.7}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Memory = 0.7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_34_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{connectivity-and-initial-prevalence}{%
+\subsection{Connectivity and Initial
+Prevalence}\label{connectivity-and-initial-prevalence}}
+
+As we saw in our simulations where we modified the prior value for
+initial prevalence, the proportion of rounds where the target action
+reached saturation was strongly correlated with the prior value chosen.
+We aim to understand whether this is a general phenomenon or simply a
+coincidence caused by our baseline parameters. Due to symmetry between
+the two actions, we only explore prior values below 0.5. We increase the
+connectivity for networks with prior values of 0.1 and 0.3.
+
+Again it appears that for both lower values for the prior, prevalence of
+the target behavior is often much lower until a certain connectivity
+threshold is reached (roughly 0.075). For all connectivity levels beyond
+this, saturation of the target behavior appears to occur with
+probability quite similar to the prior (0.1 or 0.3). Even in a fully
+connected network, the probability of convergence to the target behavior
+tracks the initial prior with remarkable precision.
+
+We maintain the baseline parameters for memory (0) and starting prior
+(50\%). We conduct 100 trials for 500 rounds each. For our simulation on
+fully connected networks, we limit the size to 50.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}367}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.05}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Connectivity = 0.05}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_36_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}205}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Connectivity = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.25}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Connectivity = 0.25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}371}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Connectivity = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_39_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}366}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.25}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Connectivity = 0.25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_40_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}369}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Connectivity = 1.0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_41_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}370}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{50}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Connectivity = 1.0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{memory-and-initial-prevalence}{%
+\subsection{Memory and Initial
+Prevalence}\label{memory-and-initial-prevalence}}
+
+We also consider the tradeoff between memory and prior. Due to symmetry
+between the two actions, we only explore prior values below 0.5. We vary
+the memory for networks with prior values of 0.1 and 0.3. Again, we find
+that the dominant effect of increasing memory seems to be simply slowing
+down the process of convergence. The phenomenon of the prior determining
+the likelihood of convergence appears to be consistent. Baseline values
+were maintained for the remaining parameters, with the exception of
+increasing the time horizon when memory is 0.5.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Memory = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_44_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Memory = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_45_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}373}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.1, Memory = 0.5, 1500 Rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_46_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Memory = 0.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_47_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Memory = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_48_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}372}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Prior = 0.3, Memory = 0.5, 1500 Rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_49_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{clusters}{%
+\subsection{Clusters}\label{clusters}}
+
+Creating clusters in the graph does not appear to drastically affect
+convergence. Upon normalizing the likelihoods to result in similar
+numbers of edges in the network, we find similar patterns of convergence
+in networks of size 100 with 4, 10, and 20 clusters (baseline parameters
+for prior and memory). We will further investigate the interaction
+between clustering and the location of trendsetters in networks.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}410}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{4}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.25}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{\PYZcb{}}
+          
+          \PY{c+c1}{\PYZsh{} Approx. 1000 edges}
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{4 Clusters (0.25/0.1)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_51_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}413}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.55}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{\PYZcb{}}
+          
+          \PY{c+c1}{\PYZsh{} Approx. 1000 edges}
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Clusters (0.55/0.1)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_52_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}412}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.5}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{20}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{\PYZcb{}}
+          
+          \PY{c+c1}{\PYZsh{} Approx. 975 edges}
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{20 Clusters (1.0/0.1)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_53_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{trendsetters}{%
+\subsection{Trendsetters}\label{trendsetters}}
+
+We are now ready to address the questions regarding the trendsetting
+portion of this project. First we introduce the notion of a trendsetter,
+which we treat as an agent who aims to make the target behavior reach
+convergence in the network. They influence those in their surrounding
+network by consistently using the target behavior, so their prior is set
+to 1 in every round.
+
+We begin by demonstrating the surprising effectiveness of a single
+trendsetter in a network where no one else is using the target behavior.
+We set the prior to 0 and keep the remaining parameters at baseline
+values. Nearly every simulation converged to the target behavior in 500
+rounds, with half of them converging in under 200 rounds. With 5
+trendsetters, all simulations converged in under 200 rounds.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}415}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One Trendsetter, No Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}418}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Five Trendsetters, No Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_56_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Trendsetters, No Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_57_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{trendsetters-in-clusters}{%
+\subsection{Trendsetters in Clusters}\label{trendsetters-in-clusters}}
+
+Most real-world networks are not uniformly random and exhibit some
+degree of clustering. An important question to answer when considering
+the efficacy of trendsetting is the allocation of resources across a
+network topology. To investigate this, we consider networks with 10
+trendsetters and 10 clusters, and conduct simulations with different
+allocations of the trendsetters between clusters. We show our results
+for the case when all are in the same cluster, spread between 2
+clusters, spread between 5 clusters, and spread between all 10 clusters.
+Each of our clusters is completely connected, with 10\% connectivity
+between clusters, no prior, and no memory. The differences between the
+results are subtle, but we find that placing all trendsetters in the
+same cluster is the least efficient allocation. Examining the cascading
+changes between the different frequency bands is helpful for
+understanding these patterns. Notably, the 40-60\% band diminishes
+fastest in the 5-cluster and 10-cluster simulations, followed by the
+2-cluster. Examining the round threshold beyond which more than half of
+the simulations have converged is useful as well. The 2-cluster
+simulation improves beyond the single cluster, and the 5-cluster
+simulation shows an improvement as well, but it is more difficult to
+discern a further improvement from the 10-cluster simulation.
+
+We also include memory values of 0.3 in simulations with 5 trendsetters,
+and find again that spreading trendsetters apart is more effective than
+keeping them together in a cluster.
+
+These results suggest that dispersion of trendsetters across a network
+may be an effective strategy, particularly for relatively small networks
+whose members exhibit copying behavior similar to our model. It is
+difficult to comment on whether the strategy of dispersing trendsetters
+will work for much larger networks, as the trendsetters in our
+simulation are still fairly close in terms of degrees of separation,
+even if they are in different clusters.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{9}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Trendsetters (together), 10 Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_59_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{12}\PY{p}{,}\PY{l+m+mi}{13}\PY{p}{,}\PY{l+m+mi}{14}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Trendsetters (2 groups), 10 Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}442}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{11}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{21}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{31}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{41}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Trendsetters (5 groups), 10 Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_61_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}447}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{15}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{25}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{35}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{45}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{10 Trendsetters (apart), 10 Clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_62_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{4}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 Trendsetters (together), 10 Clusters, Memory = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_63_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{200}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{1.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{5 Trendsetters (apart), 10 Clusters, Memory = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_64_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{trendsetters-and-initial-prevalence}{%
+\subsection{Trendsetters and Initial
+Prevalence}\label{trendsetters-and-initial-prevalence}}
+
+We also see that introducing a trendsetter into a network can have a
+powerful boosting effect on the existing prior. With a prior of 0.3, the
+likelihood of convergence to the target behavior is roughly 0.3 as
+described earlier when no trendsetters are present, but the inclusion of
+one trendsetter results in nearly every simulation converging to the
+target.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}439}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{No Trendsetters, Prior = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_66_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}438}]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.3}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                        \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{\PYZcb{}}
+          
+          \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{One Trendsetter, Prior = 0.3}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_67_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \hypertarget{drawing-conclusions-about-trendsetting}{%
+\subsection{Drawing Conclusions About
+Trendsetting}\label{drawing-conclusions-about-trendsetting}}
+
+While our simulations involving trendsetters provide strong evidence
+that small groups of individuals can have powerful effects in a network,
+we should keep in mind the limitations of our model when interpreting
+these results. We should recall that in nearly every experiment we ran,
+each simulation converged to one of the two behaviors eventually, even
+if some took longer than others. Due to the way in which agents update
+their priors, it is highly unlikely that a network will persist in
+equilibrium with both actions, because a slight fluctuation in the
+direction of one behavior can set off a cascade of copying resulting in
+convergence. Keeping this in mind, we also know that when even a single
+trendsetter is present, the network will never fully converge to the
+base action because that one trendsetter will never adopt it. Thus, we
+should not be too surprised that essentially every simulation converges
+to the target behavior when trendsetters are included.
+
+A more realistic variant of the model, which has less of a convergence
+guarantee, would be to introduce a mortality rate for agents. This was a
+prominent feature of the simulations done by Nunn et al. which we
+discussed previously. Another approach would be to weaken the prior for
+trendsetters, or to allow them to be influenced to some degree.
+
+While we do not explicitly simulate the case where trendsetters
+eventually cease trendsetting, our previous results about priors and
+probability of convergence are useful here for speculating about what
+might happen. We have seen that when trendsetters are not present, there
+is a close connection between the initial prior values and the
+likelihood that the target behavior will reach prevalence. If we take
+the prior as a representation of the proportion of agents who are
+engaging in the target behavior, which is the case in expectation in the
+first round, we can predict what will occur trendsetter were to drop out
+of the network. The network without trendsetters at this stage would
+appear quite similar to a network with the prior set to the current
+prevalence, and thus we would expect convergence to occur with
+probability roughly equal to the prevalence upon trendsetter dropout. In
+our simulation with five trendsetters and no clusters, after about 20
+rounds the mean prevalence appears to be approximately 50\%. This
+suggests that if the trendsetters were to drop out at this round, or at
+least stop overriding the prior updating process, convergence to the
+target would likely occur about half the time.
+
+    \hypertarget{running-additional-simulations}{%
+\subsection{Running Additional
+Simulations}\label{running-additional-simulations}}
+
+Running the cell below will simulate behavior in a network according to
+the specified parameters. The `trendsetters' field can be removed. If
+`clusters' is included, `edge\_prob' will have no effect, because
+`ingroup' and `outgroup' will control the likelihood for all edges. The
+`clusters' field can be removed, and `edge\_prob' will dictate the
+inclusion probability for all edges.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{n}{param\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{size}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{prior}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{edge\PYZus{}prob}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{memory}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.0}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{rounds}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{500}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trials}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{100}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{clusters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{10}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ingroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mi}{1}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{outgroup}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.2}\PY{p}{,}
+                      \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trendsetters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{visualize\PYZus{}proportions}\PY{p}{(}\PY{n}{param\PYZus{}dict}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Plot Title}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
